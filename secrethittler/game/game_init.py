@@ -1,5 +1,5 @@
 from numpy import random
-import constants
+from . import constants
 
 class Lotery:
     """ Assigns roles to players.
