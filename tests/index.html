@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Počítadlo</title>
+  </head>
+  <body onload="init()">
+	  <div style="background-color:yellow;font-size:300%;height:100px;width:100px;" id="display">(uninitalized)</div> 
+	  <div style="background-color:red;height:100px;width:100px;" id="button" onclick="post()">press me</div>
+
+
+	  <script>
+
+		var display = 0
+		var value = 0;
+
+		function workwithdata(data){
+			if (value!=data[0]){
+				display.innerHTML = data[0];
+				value=data[0];
+				}
+				console.log(data);
+
+		}
+		
+		function getdata(){
+			fetch("py.cgi").then((response)=>{return response.json();
+			}).then(workwithdata)}
+		
+		function init(){
+			display=document.getElementById("display")
+			getdata(display);
+			setInterval(getdata,2000);
+		}
+
+		function post(){
+		  fetch('py.cgi?jmenohracesem', {
+				      method: 'post',
+				          body: (""+value)
+					    }).then(function(response) {
+			      return response.json();
+			        }).then(workwithdata);
+		}
+		
+	  </script>
+  </body>
+</html>
