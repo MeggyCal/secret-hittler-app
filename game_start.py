@@ -1,5 +1,6 @@
 from numpy import random
 from . import constants
+from math import ceil
 
 class Lotery:
     """ Assigns roles to players.
@@ -9,7 +10,8 @@ class Lotery:
         self.roles = numpy.random.permutation(self.n)
 
     def assign(self, players):
-        l, f = constants.roles[self.n]
+        l = ceil((self.n+1)/2)
+        f = n-l-1
         # there should be one Hittler
         assert(l + f = self.n - 1)
         for i in range(self.roles):
