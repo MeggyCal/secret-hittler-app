@@ -12,7 +12,8 @@ def redirect(target):
     s="""<!DOCTYPE html>
     <html>
        <head>
-          <title>HTML Meta Tag</title>
+          <title>Redirect</title>
+          <meta charset="UTF-8">
           <meta http-equiv = "refresh" content = "0; url = {}" />
        </head>
        <body>

@@ -18,7 +18,7 @@ utils.printcgiheader("text/html")
 try:
     name = unquote(utils.parseurl(getenv("QUERY_STRING"))["name"])
     for ch in name:
-        if not ch.isalnum() and not (ch in "ěščřžýáíéďťňůúĚŠČŘŽÝÁÍÉĎŤŇÚŮ_ "): #FIXME -- druhá podmínka nefunguje
+        if not ch.isalnum() and not (ch in "ěščřžýáíéďťňůúĚŠČŘŽÝÁÍÉĎŤŇÚŮ_ "): #FIXME Can this be done in a better way? I am open to allowing more characters, but also feel like we shouldn't alow everything. At least javascript, python and json special characters should be banned, but I would like to keep czech characters
             raise Exception(name)
     f=open("gamecount","r")#get new game ID. Possible race condition
     num=int(f.read())
@@ -29,9 +29,8 @@ try:
     f=open("games/"+str(num),"x")
     f.write(json.dumps({"phase":"lobby","players":[name]}))
     f.close()
-    utils.redirect("lobby.html?game={}&name={}".format(str(num),quote(name)))
+    utils.redirect("lobby.cgi?game={}&name={}".format(str(num),quote(name)))
 except Exception as e:
-    print(e)
-    #utils.redirect("errorcreating.html")
-    raise #so that they end up in error log if there is something wrong
+    utils.redirect("errorcreating.html")
+    raise #so that they end up in error log if there is something wrong FIXME it seems to not be there anyway
     
