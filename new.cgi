@@ -18,7 +18,7 @@ utils.printcgiheader("text/html")
 try:
     name = unquote(utils.parseurl(getenv("QUERY_STRING"))["name"])
     for ch in name:
-        if not ch.isalnum() and not (ch in "ěščřžýáíéďťňůúĚŠČŘŽÝÁÍÉĎŤŇÚŮ_ "): #FIXME Can this be done in a better way? I am open to allowing more characters, but also feel like we shouldn't alow everything. At least javascript, python and json special characters should be banned, but I would like to keep czech characters
+        if not ch.isalnum() and not (ord(ch) >= ord('Á') and ord(ch) <= ord('ž')): #FIXME Can this be done in a better way? I am open to allowing more characters, but also feel like we shouldn't alow everything. At least javascript, python and json special characters should be banned, but I would like to keep czech characters
             raise Exception(name)
     f=open("gamecount","r")#get new game ID. Possible race condition
     num=int(f.read())
